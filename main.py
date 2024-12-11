@@ -1,5 +1,6 @@
-import pygame, sys
+import sys
 from settings import *
+from crt import CRT
 
 # General setup
 pygame.init()
