@@ -7,3 +7,6 @@ FRAMERATE = 60
 # Colors
 BG_COLOR = pygame.Color('grey12')
 LIGHT_GREY = (200,200,200)
+RED = (255,0,0)
+GOLD = (255,215,0)
+DEEPSKYBLUE = (0,191,255)
