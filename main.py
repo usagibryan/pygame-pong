@@ -2,6 +2,38 @@ import sys
 from settings import *
 from crt import CRT
 
+def ball_animation():
+    # use return statement or class instead of global
+    global ball_speed_x, ball_speed_y
+
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+
+    if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
+        ball_speed_y *= -1
+    if ball.left <= 0 or ball.right >= SCREEN_WIDTH:
+        ball_speed_x *= -1
+
+    if ball.colliderect(player) or ball.colliderect(opponent):
+        ball_speed_x *= -1
+
+def player_animation():
+    player.y += player_speed
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= SCREEN_HEIGHT:
+        player.bottom = SCREEN_HEIGHT
+
+def opponent_ai():
+    if opponent.top < ball.y:
+        opponent.top += opponent_speed
+    if opponent.bottom > ball.y:
+        opponent.bottom -= opponent_speed
+    if opponent.top <= 0:
+        opponent.top = 0
+    if opponent.bottom >= SCREEN_HEIGHT:
+        opponent.bottom = SCREEN_HEIGHT
+
 # General setup
 pygame.init()
 clock = pygame.time.Clock()
@@ -16,23 +48,31 @@ ball = pygame.Rect(SCREEN_WIDTH/2 - 15,SCREEN_HEIGHT/2 - 15,30,30)
 player = pygame.Rect(SCREEN_WIDTH - 20, SCREEN_HEIGHT/2 - 70,10,140)
 opponent = pygame.Rect(10, SCREEN_HEIGHT/2 - 70,10,140)
 
+ball_speed_x = 7
+ball_speed_y = 7
+player_speed = 0
+opponent_speed = 7
+
 while True:
     # Handling input
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-    ball.x += BALL_SPEED_X
-    ball.y += BALL_SPEED_Y
-
-    if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
-        BALL_SPEED_Y *= -1
-    if ball.left <= 0 or ball.right >= SCREEN_WIDTH:
-        BALL_SPEED_X *= -1
-
-    if ball.colliderect(player) or ball.colliderect(opponent):
-        BALL_SPEED_X *= -1
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                player_speed += 7
+            if event.key == pygame.K_UP:
+                player_speed -= 7
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_DOWN:
+                player_speed -= 7
+            if event.key == pygame.K_UP:
+                player_speed += 7
+                
+    ball_animation()
+    player_animation()
+    opponent_ai()
 
     # Visuals
     screen.fill(BG_COLOR)
@@ -40,7 +80,6 @@ while True:
     pygame.draw.rect(screen,LIGHT_GREY,opponent)
     pygame.draw.ellipse(screen,LIGHT_GREY,ball)
     pygame.draw.aaline(screen,LIGHT_GREY,(SCREEN_WIDTH/2,0),(SCREEN_WIDTH/2,SCREEN_HEIGHT))
-
 
     # Updating the window
     crt.draw()
