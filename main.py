@@ -12,7 +12,7 @@ def ball_animation():
     if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
         ball_speed_y *= -1
     if ball.left <= 0 or ball.right >= SCREEN_WIDTH:
-        ball_speed_x *= -1
+        ball_restart()
 
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
@@ -33,6 +33,9 @@ def opponent_ai():
         opponent.top = 0
     if opponent.bottom >= SCREEN_HEIGHT:
         opponent.bottom = SCREEN_HEIGHT
+
+def ball_restart():
+    ball.center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
 
 # General setup
 pygame.init()
