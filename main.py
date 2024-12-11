@@ -1,4 +1,4 @@
-import sys
+import sys, random
 from settings import *
 from crt import CRT
 
@@ -35,7 +35,10 @@ def opponent_ai():
         opponent.bottom = SCREEN_HEIGHT
 
 def ball_restart():
+    global ball_speed_x, ball_speed_y
     ball.center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
+    ball_speed_y *= random.choice((1,-1))
+    ball_speed_x *= random.choice((1,-1))
 
 # General setup
 pygame.init()
@@ -51,8 +54,8 @@ ball = pygame.Rect(SCREEN_WIDTH/2 - 15,SCREEN_HEIGHT/2 - 15,30,30)
 player = pygame.Rect(SCREEN_WIDTH - 20, SCREEN_HEIGHT/2 - 70,10,140)
 opponent = pygame.Rect(10, SCREEN_HEIGHT/2 - 70,10,140)
 
-ball_speed_x = 7
-ball_speed_y = 7
+ball_speed_x = 7 * random.choice((1,-1))
+ball_speed_y = 7 * random.choice((1,-1))
 player_speed = 0
 opponent_speed = 7
 

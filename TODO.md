@@ -1,5 +1,8 @@
 ### Todo
 
+- [ ] Add music
+- [ ] Add sound effects
+- [ ] Add score
 - [ ] Add maximize window option
 
 ### In Progress
