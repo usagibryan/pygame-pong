@@ -9,18 +9,38 @@ def ball_animation():
     ball.y += ball_speed_y
 
     if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
+        pygame.mixer.Sound.play(pong_sound)
         ball_speed_y *= -1
     
     if ball.left <= 0:
+        pygame.mixer.Sound.play(score_sound)
         player_score += 1
         score_time = pygame.time.get_ticks()
     
     if ball.right >= SCREEN_WIDTH:
+        pygame.mixer.Sound.play(score_sound)
         opponent_score += 1
         score_time = pygame.time.get_ticks()
 
-    if ball.colliderect(player) or ball.colliderect(opponent):
-        ball_speed_x *= -1
+    # from Learning Pygame by making Pong part 3 - Improving the collision mechanics
+    # See Clear Code's video dedicated to collisions to better understand how this works
+    if ball.colliderect(player) and ball_speed_x > 0:
+        pygame.mixer.Sound.play(pong_sound)
+        if abs(ball.right - player.left) < 10:
+            ball_speed_x *= -1
+        elif abs(ball.bottom - player.top) < 10 and ball_speed_y > 0:
+            ball_speed_y *= -1
+        elif abs(ball.top - player.bottom) < 10 and ball_speed_y < 0:
+            ball_speed_y *= -1
+
+    if ball.colliderect(opponent) and ball_speed_x < 0:
+        pygame.mixer.Sound.play(pong_sound)
+        if abs(ball.left - opponent.right) < 10:
+            ball_speed_x *= -1
+        elif abs(ball.bottom - opponent.top) < 10 and ball_speed_y > 0:
+            ball_speed_y *= -1
+        elif abs(ball.top - opponent.bottom) < 10 and ball_speed_y < 0:
+            ball_speed_y *= -1
 
 def player_animation():
     player.y += player_speed
@@ -64,6 +84,9 @@ def ball_start():
         score_time = None
 
 # General setup
+
+# last argument is buffer size, smaller value = smaller audio delay
+pygame.mixer.pre_init(44100,-16,2,512)
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -86,6 +109,10 @@ opponent_speed = 7
 player_score = 0
 opponent_score = 0
 game_font = pygame.font.Font("freesansbold.ttf",32)
+
+# Sound
+pong_sound = pygame.mixer.Sound("pong.ogg")
+score_sound = pygame.mixer.Sound("score.ogg")
 
 # Score Timer
 score_time = True
@@ -120,7 +147,6 @@ while True:
 
     if score_time:
         ball_start()
-
 
     player_text = game_font.render(f"{player_score}",False,LIGHT_GREY)
     screen.blit(player_text,(660,470))
