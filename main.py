@@ -3,16 +3,20 @@ from settings import *
 from crt import CRT
 
 def ball_animation():
-    # use return statement or class instead of global
-    global ball_speed_x, ball_speed_y
+    # TODO use return statement or class instead of global
+    global ball_speed_x, ball_speed_y, player_score, opponent_score
 
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
     if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
         ball_speed_y *= -1
-    if ball.left <= 0 or ball.right >= SCREEN_WIDTH:
-        ball_restart()
+    if ball.left <= 0:
+        player_score += 1
+        ball_start()
+    if ball.right >= SCREEN_WIDTH:
+        opponent_score += 1
+        ball_start()
 
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
@@ -34,7 +38,7 @@ def opponent_ai():
     if opponent.bottom >= SCREEN_HEIGHT:
         opponent.bottom = SCREEN_HEIGHT
 
-def ball_restart():
+def ball_start():
     global ball_speed_x, ball_speed_y
     ball.center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
     ball_speed_y *= random.choice((1,-1))
@@ -58,6 +62,11 @@ ball_speed_x = 7 * random.choice((1,-1))
 ball_speed_y = 7 * random.choice((1,-1))
 player_speed = 0
 opponent_speed = 7
+
+# Text variables
+player_score = 0
+opponent_score = 0
+game_font = pygame.font.Font("freesansbold.ttf",32)
 
 while True:
     # Handling input
@@ -86,6 +95,12 @@ while True:
     pygame.draw.rect(screen,GOLD,opponent)
     pygame.draw.ellipse(screen,RED,ball)
     pygame.draw.aaline(screen,DEEPSKYBLUE,(SCREEN_WIDTH/2,0),(SCREEN_WIDTH/2,SCREEN_HEIGHT))
+
+    player_text = game_font.render(f"{player_score}",False,LIGHT_GREY)
+    screen.blit(player_text,(660,470))
+    
+    opponent_text = game_font.render(f"{opponent_score}",False,LIGHT_GREY)
+    screen.blit(opponent_text,(600,470))
 
     # Updating the window
     crt.draw()
