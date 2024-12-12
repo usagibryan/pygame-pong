@@ -2,7 +2,7 @@
 
 - [ ] Add music (LMMS beat + melody after a few bars)
 - [ ] Add sound effects
-- [ ] Add score
+- [ ] Add high score to txt file
 - [ ] Add maximize window option
 - [ ] Add pause function
 - [ ] Add option to turn off CRT effect?
