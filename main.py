@@ -113,10 +113,10 @@ while True:
 
     # Visuals
     screen.fill(BG_COLOR)
-    pygame.draw.rect(screen,GOLD,player)
-    pygame.draw.rect(screen,GOLD,opponent)
-    pygame.draw.ellipse(screen,RED,ball)
-    pygame.draw.aaline(screen,DEEPSKYBLUE,(SCREEN_WIDTH/2,0),(SCREEN_WIDTH/2,SCREEN_HEIGHT))
+    pygame.draw.rect(screen,LIGHT_GREY,player)
+    pygame.draw.rect(screen,LIGHT_GREY,opponent)
+    pygame.draw.ellipse(screen,LIGHT_GREY,ball)
+    pygame.draw.aaline(screen,LIGHT_GREY,(SCREEN_WIDTH/2,0),(SCREEN_WIDTH/2,SCREEN_HEIGHT))
 
     if score_time:
         ball_start()
