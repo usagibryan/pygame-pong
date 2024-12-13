@@ -1,4 +1,6 @@
-import pygame, sys, random
+import sys, random
+from settings import *
+from crt import CRT
 
 class Block(pygame.sprite.Sprite):
 	def __init__(self,path,x_pos,y_pos):
@@ -15,8 +17,8 @@ class Player(Block):
 	def screen_constrain(self):
 		if self.rect.top <= 0:
 			self.rect.top = 0
-		if self.rect.bottom >= screen_height:
-			self.rect.bottom = screen_height
+		if self.rect.bottom >= SCREEN_HEIGHT:
+			self.rect.bottom = SCREEN_HEIGHT
 
 	def update(self,ball_group):
 		self.rect.y += self.movement
@@ -40,7 +42,7 @@ class Ball(Block):
 			self.restart_counter()
 		
 	def collisions(self):
-		if self.rect.top <= 0 or self.rect.bottom >= screen_height:
+		if self.rect.top <= 0 or self.rect.bottom >= SCREEN_HEIGHT:
 			pygame.mixer.Sound.play(plob_sound)
 			self.speed_y *= -1
 
@@ -63,7 +65,7 @@ class Ball(Block):
 		self.speed_x *= random.choice((-1,1))
 		self.speed_y *= random.choice((-1,1))
 		self.score_time = pygame.time.get_ticks()
-		self.rect.center = (screen_width/2,screen_height/2)
+		self.rect.center = (SCREEN_WIDTH /2,SCREEN_HEIGHT/2)
 		pygame.mixer.Sound.play(score_sound)
 
 	def restart_counter(self):
@@ -79,9 +81,9 @@ class Ball(Block):
 		if current_time - self.score_time >= 2100:
 			self.active = True
 
-		time_counter = basic_font.render(str(countdown_number),True,accent_color)
-		time_counter_rect = time_counter.get_rect(center = (screen_width/2,screen_height/2 + 50))
-		pygame.draw.rect(screen,bg_color,time_counter_rect)
+		time_counter = basic_font.render(str(countdown_number),True,ACCENT_COLOR)
+		time_counter_rect = time_counter.get_rect(center = (SCREEN_WIDTH /2,SCREEN_HEIGHT/2 + 50))
+		pygame.draw.rect(screen,BG_COLOR,time_counter_rect)
 		screen.blit(time_counter,time_counter_rect)
 
 class Opponent(Block):
@@ -98,7 +100,7 @@ class Opponent(Block):
 
 	def constrain(self):
 		if self.rect.top <= 0: self.rect.top = 0
-		if self.rect.bottom >= screen_height: self.rect.bottom = screen_height
+		if self.rect.bottom >= SCREEN_HEIGHT: self.rect.bottom = SCREEN_HEIGHT
 
 class GameManager:
 	def __init__(self,ball_group,paddle_group):
@@ -119,7 +121,7 @@ class GameManager:
 		self.draw_score()
 
 	def reset_ball(self):
-		if self.ball_group.sprite.rect.right >= screen_width:
+		if self.ball_group.sprite.rect.right >= SCREEN_WIDTH :
 			self.opponent_score += 1
 			self.ball_group.sprite.reset_ball()
 		if self.ball_group.sprite.rect.left <= 0:
@@ -127,11 +129,11 @@ class GameManager:
 			self.ball_group.sprite.reset_ball()
 
 	def draw_score(self):
-		player_score = basic_font.render(str(self.player_score),True,accent_color)
-		opponent_score = basic_font.render(str(self.opponent_score),True,accent_color)
+		player_score = basic_font.render(str(self.player_score),True,ACCENT_COLOR)
+		opponent_score = basic_font.render(str(self.opponent_score),True,ACCENT_COLOR)
 
-		player_score_rect = player_score.get_rect(midleft = (screen_width / 2 + 40,screen_height/2))
-		opponent_score_rect = opponent_score.get_rect(midright = (screen_width / 2 - 40,screen_height/2))
+		player_score_rect = player_score.get_rect(midleft = (SCREEN_WIDTH  / 2 + 40,SCREEN_HEIGHT/2))
+		opponent_score_rect = opponent_score.get_rect(midright = (SCREEN_WIDTH  / 2 - 40,SCREEN_HEIGHT/2))
 
 		screen.blit(player_score,player_score_rect)
 		screen.blit(opponent_score,opponent_score_rect)
@@ -142,27 +144,24 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # Main Window
-screen_width = 1280
-screen_height = 960
-screen = pygame.display.set_mode((screen_width,screen_height))
+screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT))
+crt = CRT(screen)
 pygame.display.set_caption('Pong')
 
 # Global Variables
-bg_color = pygame.Color('#2F373F')
-accent_color = (27,35,43)
 basic_font = pygame.font.Font('freesansbold.ttf', 32)
-plob_sound = pygame.mixer.Sound("pong.ogg")
-score_sound = pygame.mixer.Sound("score.ogg")
-middle_strip = pygame.Rect(screen_width/2 - 2,0,4,screen_height)
+plob_sound = pygame.mixer.Sound("audio/pong.ogg")
+score_sound = pygame.mixer.Sound("audio/score.ogg")
+middle_strip = pygame.Rect(SCREEN_WIDTH /2 - 2,0,4,SCREEN_HEIGHT)
 
 # Game objects
-player = Player('Paddle.png',screen_width - 20,screen_height/2,5)
-opponent = Opponent('Paddle.png',20,screen_width/2,5)
+player = Player('Paddle.png',SCREEN_WIDTH  - 20,SCREEN_HEIGHT/2,5)
+opponent = Opponent('Paddle.png',20,SCREEN_WIDTH /2,5)
 paddle_group = pygame.sprite.Group()
 paddle_group.add(player)
 paddle_group.add(opponent)
 
-ball = Ball('Ball.png',screen_width/2,screen_height/2,4,4,paddle_group)
+ball = Ball('Ball.png',SCREEN_WIDTH /2,SCREEN_HEIGHT/2,4,4,paddle_group)
 ball_sprite = pygame.sprite.GroupSingle()
 ball_sprite.add(ball)
 
@@ -185,12 +184,13 @@ while True:
 				player.movement -= player.speed
 	
 	# Background Stuff
-	screen.fill(bg_color)
-	pygame.draw.rect(screen,accent_color,middle_strip)
+	screen.fill(BG_COLOR)
+	pygame.draw.rect(screen,ACCENT_COLOR,middle_strip)
 	
 	# Run the game
 	game_manager.run_game()
 
 	# Rendering
+	crt.draw()
 	pygame.display.flip()
 	clock.tick(120)
