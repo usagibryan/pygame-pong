@@ -144,12 +144,13 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # Main Window
-screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT), pygame.SCALED) # without scaled it stretches, but with scaled CRT doesn't look good
 crt = CRT(screen)
 pygame.display.set_caption('Pong')
 
 # Global Variables
 basic_font = pygame.font.Font('freesansbold.ttf', 32)
+bg_music = pygame.mixer.Sound("audio/bg_music.wav")
 plob_sound = pygame.mixer.Sound("audio/pong.ogg")
 score_sound = pygame.mixer.Sound("audio/score.ogg")
 middle_strip = pygame.Rect(SCREEN_WIDTH /2 - 2,0,4,SCREEN_HEIGHT)
@@ -168,6 +169,8 @@ ball_sprite.add(ball)
 game_manager = GameManager(ball_sprite,paddle_group)
 
 while True:
+	
+	# Handling Input
 	for event in pygame.event.get():
 
 		# Exit Window Option
@@ -196,7 +199,10 @@ while True:
 	# Run the game
 	game_manager.run_game()
 
+	# Music
+	# pygame.mixer.Sound.play(bg_music) # sounds awful. Why?
+
 	# Rendering
 	crt.draw()
 	pygame.display.flip()
-	clock.tick(FRAMERATE) # TODO use delta time for frame rate
+	clock.tick(FRAMERATE) # TODO use delta time for frame rate, also IMO ball is too slow
