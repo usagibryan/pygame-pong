@@ -1,7 +1,6 @@
 ### Todo
 
 - [ ] Add music (LMMS beat + melody after a few bars)
-- [ ] Add sound effects
 - [ ] Add high score to txt file
 - [ ] Add maximize window option
 - [ ] Add pause function
@@ -16,3 +15,4 @@
 ### Done ✓
 - [X] Add CRT Effect
 - [X] Add settings.py
+- [X] Add sound effects
