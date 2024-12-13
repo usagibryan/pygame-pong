@@ -9,6 +9,7 @@
 - [ ] Add controller input
 - [ ] Add sprite classes to a separate file
 - [ ] Add game manager to a separate file
+- [ ] More speed at higher levels?
 - [ ] Add powerups...?
 
 ### In Progress
