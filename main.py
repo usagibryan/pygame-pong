@@ -173,6 +173,8 @@ while True:
 			pygame.quit()
 			sys.exit()
 		if event.type == pygame.KEYDOWN:
+			if event.mod & pygame.KMOD_ALT and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
+				pygame.display.toggle_fullscreen()
 			if event.key == pygame.K_UP:
 				player.movement -= player.speed
 			if event.key == pygame.K_DOWN:
