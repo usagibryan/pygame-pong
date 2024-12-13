@@ -2,7 +2,7 @@ import pygame
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 960
-FRAMERATE = 60
+FRAMERATE = 120
 
 # Colors
 BG_COLOR = pygame.Color('#2F373F')

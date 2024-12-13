@@ -199,4 +199,6 @@ while True:
 	# Rendering
 	crt.draw()
 	pygame.display.flip()
-	clock.tick(120)
+	
+	# TODO use delta time for frame rate
+	clock.tick(FRAMERATE)

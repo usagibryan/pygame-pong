@@ -1,6 +1,6 @@
 ### Todo
 - [ ] Add music (LMMS beat + melody after a few bars)
-- [ ] Add high score to txt file
+- [ ] Add high score to txt file (TODO rewatch Clear Code video about JSON files)
 - [ ] Add pause function
 - [ ] Add option to turn off CRT effect?
 - [ ] Add volume bar and control
@@ -15,5 +15,4 @@
 ### Done ✓
 - [X] Add CRT Effect
 - [X] Add settings.py
-- [X] Add sound effects
 - [X] Add maximize window option
