@@ -7,6 +7,8 @@
 - [ ] Add game over menu
 - [ ] Add intro menu
 - [ ] Add controller input
+- [ ] Add sprite classes to a separate file
+- [ ] Add game manager to a separate file
 
 ### In Progress
 

@@ -155,13 +155,13 @@ score_sound = pygame.mixer.Sound("audio/score.ogg")
 middle_strip = pygame.Rect(SCREEN_WIDTH /2 - 2,0,4,SCREEN_HEIGHT)
 
 # Game objects
-player = Player('Paddle.png',SCREEN_WIDTH  - 20,SCREEN_HEIGHT/2,5)
-opponent = Opponent('Paddle.png',20,SCREEN_WIDTH /2,5)
+player = Player('graphics/paddle.png',SCREEN_WIDTH  - 20,SCREEN_HEIGHT/2,5)
+opponent = Opponent('graphics/paddle.png',20,SCREEN_WIDTH /2,5)
 paddle_group = pygame.sprite.Group()
 paddle_group.add(player)
 paddle_group.add(opponent)
 
-ball = Ball('Ball.png',SCREEN_WIDTH /2,SCREEN_HEIGHT/2,4,4,paddle_group)
+ball = Ball('graphics/ball.png',SCREEN_WIDTH /2,SCREEN_HEIGHT/2,4,4,paddle_group)
 ball_sprite = pygame.sprite.GroupSingle()
 ball_sprite.add(ball)
 
@@ -169,9 +169,13 @@ game_manager = GameManager(ball_sprite,paddle_group)
 
 while True:
 	for event in pygame.event.get():
+
+		# Exit Window Option
 		if event.type == pygame.QUIT:
 			pygame.quit()
 			sys.exit()
+
+		# Keyboard Controls
 		if event.type == pygame.KEYDOWN:
 			if event.mod & pygame.KMOD_ALT and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
 				pygame.display.toggle_fullscreen()
