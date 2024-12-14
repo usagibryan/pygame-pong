@@ -146,7 +146,7 @@ clock = pygame.time.Clock()
 audio = Audio()
 
 # Main Window
-# without pygame.SCALED as a second argument it stretches, but with scaled CRT doesn't look good
+# without pygame.SCALED as a second argument the aspect ratio stretches, but with scaled CRT doesn't look good
 screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT), pygame.SCALED)
 crt = CRT(screen)
 pygame.display.set_caption('Pong')
@@ -181,9 +181,9 @@ while True:
 
 		# Keyboard Controls
 		if event.type == pygame.KEYDOWN:
-			if event.mod & pygame.KMOD_ALT and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
+			if event.mod & pygame.KMOD_ALT and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]: # change to F11?
 				pygame.display.toggle_fullscreen()
-				full_screen = not full_screen
+				full_screen = not full_screen # when full screen is toggled change when CRT lines are drawn
 			if event.key == pygame.K_UP:
 				player.movement -= player.speed
 			if event.key == pygame.K_DOWN:
@@ -206,7 +206,7 @@ while True:
 		audio.channel_0.play(audio.bg_music)
 
 	# Rendering
-	if full_screen == False:
+	if full_screen == False: # only draw CRT lines when not in full screen
 		crt.draw()
 	pygame.display.flip()
 	clock.tick(FRAMERATE) # TODO use delta time for frame rate, also IMO ball is too slow
