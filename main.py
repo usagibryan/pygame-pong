@@ -146,13 +146,15 @@ clock = pygame.time.Clock()
 audio = Audio()
 
 # Main Window
-screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT)) # without pygame.SCALED as a second argument it stretches, but with scaled CRT doesn't look good
+# without pygame.SCALED as a second argument it stretches, but with scaled CRT doesn't look good
+screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT), pygame.SCALED)
 crt = CRT(screen)
 pygame.display.set_caption('Pong')
 
 # Global Variables
 basic_font = pygame.font.Font('freesansbold.ttf', 32)
 middle_strip = pygame.Rect(SCREEN_WIDTH /2 - 2,0,4,SCREEN_HEIGHT)
+full_screen = False
 
 # Game objects
 player = Player('graphics/paddle.png',SCREEN_WIDTH  - 20,SCREEN_HEIGHT/2,5)
@@ -181,6 +183,7 @@ while True:
 		if event.type == pygame.KEYDOWN:
 			if event.mod & pygame.KMOD_ALT and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
 				pygame.display.toggle_fullscreen()
+				full_screen = not full_screen
 			if event.key == pygame.K_UP:
 				player.movement -= player.speed
 			if event.key == pygame.K_DOWN:
@@ -203,6 +206,7 @@ while True:
 		audio.channel_0.play(audio.bg_music)
 
 	# Rendering
-	crt.draw()
+	if full_screen == False:
+		crt.draw()
 	pygame.display.flip()
 	clock.tick(FRAMERATE) # TODO use delta time for frame rate, also IMO ball is too slow
