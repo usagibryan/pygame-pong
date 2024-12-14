@@ -18,6 +18,7 @@ class Audio():
         self.score_sound.set_volume(self.master_volume)
         self.channel_2 = pygame.mixer.Channel(2)
 
+    # Use this later for volume control
     def update(self):
         """Updates volume of all sounds and music"""
         self.bg_music.set_volume(self.master_volume)

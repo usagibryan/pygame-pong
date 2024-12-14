@@ -1,5 +1,5 @@
 ### Todo
-- [ ] Add music (LMMS beat + melody after a few bars)
+- [ ] Add more music (LMMS beat + melody after a few bars)
 - [ ] Add high score to txt file (TODO rewatch Clear Code video about JSON files)
 - [ ] Add pause function
 - [ ] Add option to turn off CRT effect?
@@ -9,7 +9,7 @@
 - [ ] Add controller input
 - [ ] Add sprite classes to a separate file
 - [ ] Add game manager to a separate file
-- [ ] More speed at higher levels?
+- [ ] More speed at higher levels? Increase opponent and ball speed with every score
 - [ ] Add powerups...?
 
 ### In Progress
