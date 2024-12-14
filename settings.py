@@ -5,6 +5,6 @@ SCREEN_HEIGHT = 960
 FRAMERATE = 120
 
 # Colors
-BG_COLOR = pygame.Color('#000000')
+BG_COLOR = pygame.Color('#222222')
 # ACCENT_COLOR = (27,35,43)
 ACCENT_COLOR = (200,200,200)

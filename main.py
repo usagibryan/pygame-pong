@@ -146,7 +146,7 @@ clock = pygame.time.Clock()
 audio = Audio()
 
 # Main Window
-screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT), pygame.SCALED) # without scaled it stretches, but with scaled CRT doesn't look good
+screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT)) # without pygame.SCALED as a second argument it stretches, but with scaled CRT doesn't look good
 crt = CRT(screen)
 pygame.display.set_caption('Pong')
 
