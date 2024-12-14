@@ -21,7 +21,7 @@ class Player(Block):
 		if self.rect.bottom >= SCREEN_HEIGHT:
 			self.rect.bottom = SCREEN_HEIGHT
 
-	def update(self,ball_group):
+	def update(self,ball_group): # does not use ball_group but still needs it
 		self.rect.y += self.movement
 		self.screen_constrain()
 
@@ -199,8 +199,8 @@ while True:
 	game_manager.run_game()
 
 	# Music
-	if not audio.channel_0.get_busy(): # without this it sounds like static
-		audio.channel_0.play(audio.bg_music)
+	# if not audio.channel_0.get_busy(): # without this it sounds like static
+	# 	audio.channel_0.play(audio.bg_music)
 
 	# Rendering
 	crt.draw()
