@@ -1,6 +1,7 @@
 import sys, random
 from settings import *
 from crt import CRT
+from audio import Audio
 
 class Block(pygame.sprite.Sprite):
 	def __init__(self,path,x_pos,y_pos):
@@ -43,11 +44,11 @@ class Ball(Block):
 		
 	def collisions(self):
 		if self.rect.top <= 0 or self.rect.bottom >= SCREEN_HEIGHT:
-			pygame.mixer.Sound.play(plob_sound)
+			audio.channel_1.play(audio.plob_sound)
 			self.speed_y *= -1
 
 		if pygame.sprite.spritecollide(self,self.paddles,False):
-			pygame.mixer.Sound.play(plob_sound)
+			audio.channel_1.play(audio.plob_sound)
 			collision_paddle = pygame.sprite.spritecollide(self,self.paddles,False)[0].rect
 			if abs(self.rect.right - collision_paddle.left) < 10 and self.speed_x > 0:
 				self.speed_x *= -1
@@ -66,7 +67,7 @@ class Ball(Block):
 		self.speed_y *= random.choice((-1,1))
 		self.score_time = pygame.time.get_ticks()
 		self.rect.center = (SCREEN_WIDTH /2,SCREEN_HEIGHT/2)
-		pygame.mixer.Sound.play(score_sound)
+		audio.channel_2.play(audio.score_sound)
 
 	def restart_counter(self):
 		current_time = pygame.time.get_ticks()
@@ -142,6 +143,7 @@ class GameManager:
 pygame.mixer.pre_init(44100,-16,2,512)
 pygame.init()
 clock = pygame.time.Clock()
+audio = Audio()
 
 # Main Window
 screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT), pygame.SCALED) # without scaled it stretches, but with scaled CRT doesn't look good
@@ -150,9 +152,6 @@ pygame.display.set_caption('Pong')
 
 # Global Variables
 basic_font = pygame.font.Font('freesansbold.ttf', 32)
-bg_music = pygame.mixer.Sound("audio/bg_music.wav")
-plob_sound = pygame.mixer.Sound("audio/pong.ogg")
-score_sound = pygame.mixer.Sound("audio/score.ogg")
 middle_strip = pygame.Rect(SCREEN_WIDTH /2 - 2,0,4,SCREEN_HEIGHT)
 
 # Game objects
@@ -200,7 +199,8 @@ while True:
 	game_manager.run_game()
 
 	# Music
-	# pygame.mixer.Sound.play(bg_music) # sounds awful. Why?
+	if not audio.channel_0.get_busy(): # without this it sounds like static
+		audio.channel_0.play(audio.bg_music)
 
 	# Rendering
 	crt.draw()
