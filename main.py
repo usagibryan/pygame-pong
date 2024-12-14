@@ -199,8 +199,8 @@ while True:
 	game_manager.run_game()
 
 	# Music
-	# if not audio.channel_0.get_busy(): # without this it sounds like static
-	# 	audio.channel_0.play(audio.bg_music)
+	if not audio.channel_0.get_busy(): # without this it sounds like static
+		audio.channel_0.play(audio.bg_music)
 
 	# Rendering
 	crt.draw()
