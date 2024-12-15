@@ -1,5 +1,6 @@
 ### Todo
-- [ ] Add more music (LMMS beat + melody after a few bars)
+- [ ] Add more/better music (LMMS beat + melody after a few bars)
+- [ ] Add mute option for music
 - [ ] Add high score to txt file (TODO rewatch Clear Code video about JSON files)
 - [ ] Add pause function
 - [ ] Add option to turn off CRT effect?
