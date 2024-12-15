@@ -145,6 +145,10 @@ pygame.init()
 clock = pygame.time.Clock()
 audio = Audio()
 
+# Joystick setup
+pygame.joystick.init()
+joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
+
 # Main Window
 # without pygame.SCALED as a second argument the aspect ratio stretches, but with scaled CRT doesn't look good
 screen = pygame.display.set_mode((SCREEN_WIDTH ,SCREEN_HEIGHT), pygame.SCALED)
@@ -194,6 +198,33 @@ while True:
 			if event.key == pygame.K_DOWN:
 				player.movement -= player.speed
 	
+		# Joystick controls
+
+		# Get data from print outs
+		# if event.type == pygame.JOYBUTTONDOWN:
+		# 	print(event)
+		# if event.type == pygame.JOYBUTTONUP:
+		# 	print(event)
+		if event.type == pygame.JOYAXISMOTION:
+			# print(event)
+			# Axis 1 (Vertical movement) controls paddle
+			if event.axis == 1:  # Vertical axis on most joysticks
+				if event.value < -0.1:  # Push up
+					player.movement = -player.speed
+				elif event.value > 0.1:  # Push down
+					player.movement = player.speed
+				else:  # Stick is centered
+					player.movement = 0
+		if event.type == pygame.JOYHATMOTION:
+			# print(event)
+			# D-Pad controls paddle
+			if event.value[1] == 1:  # D-Pad up
+				player.movement = -player.speed
+			elif event.value[1] == -1:  # D-Pad down
+				player.movement = player.speed
+			else:  # D-Pad centered
+				player.movement = 0
+
 	# Background Stuff
 	screen.fill(BG_COLOR)
 	pygame.draw.rect(screen,ACCENT_COLOR,middle_strip)

@@ -7,7 +7,8 @@
 - [ ] Add volume bar and control
 - [ ] Add game over menu
 - [ ] Add intro menu
-- [ ] Add controller input
+- [ ] Add controller input for DPad
+- [ ] Make controller work after it's been plugged in while the game is running?
 - [ ] Add sprite classes to a separate file
 - [ ] Add game manager to a separate file
 - [ ] More speed at higher levels? Increase opponent and ball speed with every score
