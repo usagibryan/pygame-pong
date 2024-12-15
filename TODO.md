@@ -1,3 +1,6 @@
+### Problems
+- [ ] VSCode complains about inconsistent tabs and spaces, but hitting tab creates spaces...
+
 ### Todo
 - [ ] Instead of relying on `clock.tick(FRAMERATE)`, use delta time (`dt`) for frame-independent movement.
 - [ ] Add more/better music (LMMS beat + melody after a few bars)
