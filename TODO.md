@@ -1,4 +1,5 @@
 ### Todo
+- [ ] Instead of relying on `clock.tick(FRAMERATE)`, use delta time (`dt`) for frame-independent movement.
 - [ ] Add more/better music (LMMS beat + melody after a few bars)
 - [ ] Add mute option for music
 - [ ] Add high score to txt file (TODO rewatch Clear Code video about JSON files)
