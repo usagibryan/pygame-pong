@@ -5,7 +5,7 @@ class Audio():
         super().__init__()
         self.master_volume = 1 # default value is 1.0
 
-        self.bg_music = pygame.mixer.Sound('audio/pong_bg_music2.wav')
+        self.bg_music = pygame.mixer.Sound('audio/pong_bg_music.ogg')
         self.bg_music.set_volume(self.master_volume)
         self.channel_0 = pygame.mixer.Channel(0)
         # self.play_bg_music = True # Use this later to control when bg_music is played
