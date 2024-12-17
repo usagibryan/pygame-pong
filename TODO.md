@@ -14,6 +14,9 @@
 - [ ] Make controller work after it's been plugged in while the game is running?
 - [ ] More speed at higher levels? Increase opponent and ball speed with every score
 - [ ] Add powerups...?
+- [ ] Change color of paddles?
+- [ ] Score location should be on top (see examples of pong online)
+- [ ] Make center line dotted?
 
 ### In Progress
 
